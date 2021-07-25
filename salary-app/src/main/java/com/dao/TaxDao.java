@@ -1,12 +1,16 @@
-package dao;
+package com.dao;
 
-import model.TaxBracket;
+import com.model.TaxBracket;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
 
 @Component
 public class TaxDao {
+
+    public TaxDao(TaxRepository taxRepository) {
+        this.taxRepository = taxRepository;
+    }
 
     private TaxRepository taxRepository;
 

@@ -1,6 +1,6 @@
-package dao;
+package com.dao;
 
-import model.TaxBracket;
+import com.model.TaxBracket;
 import org.springframework.data.repository.CrudRepository;
 
 import java.util.List;

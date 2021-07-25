@@ -1,7 +1,7 @@
-package service;
+package com.service;
 
-import dao.TaxDao;
-import model.TaxBracket;
+import com.dao.TaxDao;
+import com.model.TaxBracket;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
