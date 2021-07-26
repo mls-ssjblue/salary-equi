@@ -26,8 +26,8 @@ public class TaxService {
             idx++;
         }
         while (salary.compareTo(taxBrackets.get(idx).getHigh()) >= 0);
-        taxPayable.add(salary.subtract(taxBrackets.get(idx).getLow().multiply(
-                taxBrackets.get(idx).getTaxRate().multiply(BigDecimal.valueOf(0.01)))));
+        taxPayable = taxPayable.add(salary.subtract(taxBrackets.get(idx).getLow()).multiply(
+                taxBrackets.get(idx).getTaxRate().multiply(BigDecimal.valueOf(0.01))));
 
         return taxPayable;
 
