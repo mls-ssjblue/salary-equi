@@ -1,12 +1,16 @@
-import * as React from 'react'
-import styled from 'styled-components'
+import * as React from "react";
+import styled from "styled-components";
+import Typography from "@material-ui/core/Typography";
+
 export const Header: React.FC = () => {
   return (
-    <StyledHeader>
-      <StyledHeading>Salary Equivalence</StyledHeading>
-    </StyledHeader>
-  )
-}
+    // <StyledHeader>
+      <Typography variant="h2" component="h1" gutterBottom>
+        Salary Equivalence
+      </Typography>
+    // </StyledHeader>
+  );
+};
 
 const StyledHeader = styled.div`
   padding: 5px;
@@ -22,3 +26,4 @@ const StyledHeading = styled.h1`
   white-space: nowrap; /* Keeps the content on a single line */
   margin: 0 auto; /* Gives that scrolling effect as the typing happens */
 `;
+
