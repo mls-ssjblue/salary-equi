@@ -33,7 +33,7 @@ public class TaxCSVReader {
                 taxBrackets.add(buildTaxBracket(record));
                 String[] nextLine = csvReader.readNext();
                 if(nextLine == null)break;
-                record = List.of(csvReader.readNext());
+                record = List.of(nextLine);
             }
         } catch (Exception e) {
             e.printStackTrace();
