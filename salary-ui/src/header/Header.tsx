@@ -19,9 +19,6 @@ const StyledHeading = styled.h1`
   font-size: 3.5rem;
   letter-spacing: 4px;
   overflow: hidden; /* Ensures the content is not revealed until the animation */
-  border-right: 0.15em solid orange; /* The typwriter cursor */
   white-space: nowrap; /* Keeps the content on a single line */
   margin: 0 auto; /* Gives that scrolling effect as the typing happens */
-  animation: typing 3.5s steps(40, end) infinite,
-    blink-caret 0.75s step-end infinite;
 `;

@@ -1,0 +1,18 @@
+.field {
+    width: 50px;
+    align-content: start;
+    flex: 1;
+    flex-direction: row;
+    margin: 10px;
+}
+
+.salary {
+    flex: 1;
+}
+
+.tax {
+    flex-direction: row;
+    flex: 1;
+    float: left;
+    margin: 10px;
+}
