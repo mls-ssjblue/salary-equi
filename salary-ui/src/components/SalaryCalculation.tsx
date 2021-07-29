@@ -6,6 +6,24 @@ export const SalaryCalculation = () => {
     const [salary, setSalary] = useState(0);
     const [country, setCountry] = useState('Singapore');
     const [tax, setTax] = useState(0);
+
+
+    const calculateTax = (country :string, salary :number)  => {
+        fetch('http:localhost:123',{
+            "method": "POST",
+            "headers": {
+                "content-type": "application/json",
+                "accept": "application/json"
+            },
+            "body": JSON.stringify({
+                country,
+                salary
+            })
+        }).then(response=>response.json())
+            .then(response=>setTax(response.tax));
+        ;
+
+    };
     return (
         <StyledStage>
             <form>
@@ -22,7 +40,7 @@ export const SalaryCalculation = () => {
                         <span>Salary: </span>
                         <input onChange={e => setSalary(+e.target.value)}/>
                     </div>
-                    <button onClick={e => setTax(calculateTax(country, salary))}/>
+                    <button onClick={e => calculateTax(country, salary)}/>
                     <div className="tax">Tax: {tax}</div>
 
                 </div>
@@ -32,22 +50,6 @@ export const SalaryCalculation = () => {
 }
 
 
-const calculateTax = (country :string, salary :number) : number => {
-    let tax :number;
-    fetch('http:localhost:123',{
-        "method": "POST",
-        "headers": {
-            "content-type": "application/json",
-            "accept": "application/json"
-        },
-        "body": JSON.stringify({
-            country,
-            salary
-        })
-    }).then(response=>response.json())
-        .then(response=>tax=response.tax);
-    return tax;
-}
 const StyledStage = styled.div`
     margin:20px;
     padding: 10px;
