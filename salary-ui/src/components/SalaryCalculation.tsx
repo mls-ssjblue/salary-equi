@@ -1,6 +1,11 @@
 import styled from 'styled-components'
 import '../Salary.css'
 import {useState} from "react"
+import {Button, FormControl, InputLabel, MenuItem, Select, Input, TextField,
+Typography} from "@material-ui/core";
+import {makeStyles} from "@material-ui/core/styles";
+import classNames from "classnames";
+import '@fontsource/roboto';
 
 export const SalaryCalculation = () => {
     const [salary, setSalary] = useState(0)
@@ -23,28 +28,94 @@ export const SalaryCalculation = () => {
             });
 
     }
+    const handleChange = (event: any) => {
+        setCountry(event.target.value);
+    };
+    const classes = useStyles();
+
     return (
         <StyledStage>
             <div className="salary">
                 <div className="field">
-                    <span>Country: </span>
-                    <select onChange={(e) =>
-                        setCountry(e.target.value)}>
-                        <option>UK</option>
-                        <option>Singapore</option>
-                    </select>
+                    <FormControl className={classNames(classes.formControl, classes.text)}>
+                        <InputLabel style={{fontSize: '18px'}}>Country</InputLabel>
+                        <Select
+                            labelId="demo-simple-select-label"
+                            id="demo-simple-select"
+                            value={country}
+                            onChange={handleChange}
+                        >
+                            <MenuItem value={"Singapore"}>Singapore</MenuItem>
+                            <MenuItem value={"UK"}>UK</MenuItem>
+                        </Select>
+                    </FormControl>
+
                 </div>
                 <div className="field">
-                    <span>Salary: </span>
-                    <input onChange={e => setSalary(+e.target.value)}/>
+                    <FormControl className={classNames(classes.formControl, classes.text)}>
+                        <InputLabel>Salary</InputLabel>
+                        <Input onChange={e => setSalary(+e.target.value)}/>
+                    </FormControl>
                 </div>
-                <button onClick={() => calculateTax(country, salary)}> Calculate</button>
-                <div className="tax">Tax: {tax}</div>
+                <div className="field">
 
+                    <Button className={classNames(classes.submitBtn)}
+                            onClick={() => calculateTax(country, salary)}> Calculate</Button>
+                    <Typography variant="h6" style={{width: '50px', textAlign: 'left'}}>Tax: {tax}</Typography>
+                </div>
             </div>
         </StyledStage>
     )
 }
+
+
+const useStyles = makeStyles(theme => ({
+    root: {
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+        ...theme.typography.button,
+        backgroundColor: theme.palette.background.paper,
+        padding: theme.spacing(1),
+    },
+    form: {
+        width: 800,
+        display: "flex",
+        flexWrap: "wrap",
+        justifyContent: "center",
+        alignItems: "center"
+    },
+    container: {
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center"
+    },
+    text: {
+        minWidth: 120
+    },
+    type: {
+        fontWeight: 600
+    },
+    formControl: {
+        margin: 10,
+        display: "flex"
+    },
+    input: {
+        padding: "10px 14px"
+    },
+    select: {
+        maxWidth: 130
+    },
+    search: {
+        maxWidth: 180
+    },
+    submitBtn: {
+        [theme.breakpoints.down("xs")]: {
+            width: "100%"
+        },
+        background:'cadetblue'
+    }
+}));
 
 
 const StyledStage = styled.div`
