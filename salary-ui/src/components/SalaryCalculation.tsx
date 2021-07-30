@@ -61,7 +61,10 @@ export const SalaryCalculation = () => {
 
                     <Button className={classNames(classes.submitBtn)}
                             onClick={() => calculateTax(country, salary)}> Calculate</Button>
-                    <Typography variant="h6" style={{width: '50px', textAlign: 'left'}}>Tax: {tax}</Typography>
+                </div>
+
+                <div className="results">
+                    <Typography variant="h6" style={{textAlign: 'left'}}>Tax: {tax}</Typography>
                 </div>
             </div>
         </StyledStage>
@@ -113,7 +116,9 @@ const useStyles = makeStyles(theme => ({
         [theme.breakpoints.down("xs")]: {
             width: "100%"
         },
-        background:'cadetblue'
+        background:'cadetblue',
+        float: "right",
+        marginTop: "20px"
     }
 }));
 

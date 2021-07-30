@@ -1,5 +1,5 @@
 .field {
-    width: 50px;
+    /*width: 50px;*/
     align-content: start;
     flex: 1;
     flex-direction: row;
@@ -10,9 +10,13 @@
     flex: 1;
 }
 
-.tax {
-    flex-direction: row;
-    flex: 1;
-    float: left;
-    margin: 10px;
+/*.tax {*/
+/*    flex-direction: row;*/
+/*    flex: 1;*/
+/*    float: left;*/
+/*    margin: 10px;*/
+/*}*/
+
+.results {
+    margin:30px;
 }
