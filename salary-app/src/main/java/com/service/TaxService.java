@@ -5,6 +5,7 @@ import com.model.TaxBracket;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.List;
 
 @Service
@@ -32,6 +33,18 @@ public class TaxService {
 
         return taxPayable;
 
+    }
+
+    public BigDecimal monthlyTaxPayable(BigDecimal annualTax){
+
+        BigDecimal monthlyTax  = annualTax.divide(BigDecimal.valueOf(12), RoundingMode.FLOOR);
+        return monthlyTax.setScale(2,RoundingMode.FLOOR);
+    }
+
+    public BigDecimal getNetMonthlySalary(BigDecimal monthlyTax, BigDecimal salary){
+        BigDecimal monthlySalary  = salary.divide(BigDecimal.valueOf(12), RoundingMode.FLOOR);
+        monthlySalary.setScale(2,RoundingMode.FLOOR);
+        return monthlySalary.subtract(monthlyTax);
     }
 
 }

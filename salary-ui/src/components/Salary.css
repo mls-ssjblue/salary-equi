@@ -27,6 +27,8 @@
     align-content: start;
     font-family: "Roboto Medium";
     font-size: 20px;
+    text-align: left;
+    max-width: 125px;
 
 }
 
@@ -39,12 +41,17 @@
     background: #87d691;
     width: 150px;
     padding-right:5px;
+    height: 25px;
 }
 #tax {
     border-left:5px solid #d00c06;
     background: #d79c5d;
 }
 
+#nms {
+    border-left:5px solid #1a5306;
+    background: #61a916;
+}
 .stage {
     margin:20px;
     padding: 10px;

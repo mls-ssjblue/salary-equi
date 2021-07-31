@@ -13,6 +13,7 @@ export const SalaryCalculation = () => {
     const [country, setCountry] = useState('Singapore')
     const [annualTax, setAnnualTax] = useState(0)
     const [monthlyTax, setMonthlyTax] = useState(0)
+    const [netMonthlySalary, setNetMonthlySalary] = useState(0)
 
 
     const calculateTax = (country: string, salary: number) => {
@@ -26,6 +27,7 @@ export const SalaryCalculation = () => {
             .then(response => {
                 setAnnualTax(response.annualTax)
                 setMonthlyTax(response.monthlyTax)
+                setNetMonthlySalary(response.netMonthlySalary)
             })
 
     }
@@ -72,6 +74,11 @@ export const SalaryCalculation = () => {
                         <div className="label">Monthly Tax</div>
 
                         <div className="value" id="tax">{monthlyTax}</div>
+                    </div>
+                    <div className="result">
+                        <div className="label">Net Monthly Salary</div>
+
+                        <div className="value" id="nms">{netMonthlySalary}</div>
                     </div>
 
 

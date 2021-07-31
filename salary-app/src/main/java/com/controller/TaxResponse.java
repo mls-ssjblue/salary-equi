@@ -13,12 +13,12 @@ public class TaxResponse {
     BigDecimal monthlyTax;
 
     @JsonProperty
-    BigDecimal netSalary;
+    BigDecimal netMonthlySalary;
 
     public TaxResponse(BigDecimal annualTax, BigDecimal monthlyTax,
-                       BigDecimal netSalary) {
+                       BigDecimal netMonthlySalary) {
         this.annualTax = annualTax;
         this.monthlyTax = monthlyTax;
-        this.netSalary = netSalary;
+        this.netMonthlySalary = netMonthlySalary;
     }
 }
