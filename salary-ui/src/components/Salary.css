@@ -4,10 +4,7 @@
     flex: 1;
     flex-direction: row;
     margin: 10px;
-}
-
-.salary {
-    flex: 1;
+    width: 100%;
 }
 
 .results {
@@ -15,47 +12,66 @@
     margin-left: 20px;
     display: flex;
     flex-direction: column;
+    width: 100%;
+    align-items: center;
 
 }
-.result{
+
+.result {
     display: flex;
-    margin-top:10px;
+    margin-top: 10px;
 
 }
+
 .label {
     margin-right: 10px;
     align-content: start;
     font-family: "Roboto Medium";
     font-size: 20px;
     text-align: left;
-    max-width: 125px;
+    width: 125px;
 
 }
 
 .value {
-    margin-left:auto;
-    margin-right:50px;
+    margin-left: auto;
+    margin-right: 50px;
     font-family: "Roboto Black";
     font-size: 20px;
-    border-left:5px solid green;
+    border-left: 5px solid green;
     background: #87d691;
     width: 150px;
-    padding-right:5px;
+    padding-right: 5px;
     height: 25px;
 }
+
 #tax {
-    border-left:5px solid #d00c06;
+    border-left: 5px solid #d00c06;
     background: #d79c5d;
 }
 
 #nms {
-    border-left:5px solid #1a5306;
+    border-left: 5px solid #1a5306;
     background: #61a916;
 }
+
 .stage {
-    margin:20px;
-    padding: 10px;
+    width: 100%;
+}
+
+.stage-container {
+
+    margin-right: 10%;
+    margin-left: 10%;
     text-align: center;
-    display:flex;
+    display: flex;
     background: #fbfffc;
+    flex-direction: column;
+    width: 100vw;
+    align-items: center;
+
+}
+#submit-button {
+    float: right;
+    margin: 50px;
 }

@@ -37,8 +37,8 @@ export const SalaryCalculation = () => {
     const classes = useStyles()
 
     return (
-        <div className="stage">
-            <div className="salary">
+        <div className="stage-container">
+            <div className="stage">
                 <div className="field">
                     <FormControl className={classNames(classes.formControl, classes.text)}>
                         <InputLabel style={{fontSize: '24px'}}>Country</InputLabel>
@@ -60,11 +60,7 @@ export const SalaryCalculation = () => {
                         <Input onChange={e => setSalary(+e.target.value)}/>
                     </FormControl>
                 </div>
-                <div className="field">
 
-                    <Button className={classNames(classes.submitBtn)}
-                            onClick={() => calculateTax(country, salary)}> Calculate</Button>
-                </div>
                 <div className="results">
                     <div className="result">
                         <div className="label">Annual Tax</div>
@@ -79,6 +75,9 @@ export const SalaryCalculation = () => {
                         <div className="label">Net Monthly Salary</div>
 
                         <div className="value" id="nms">{netMonthlySalary}</div>
+                    </div>
+                    <div id="submit-button"><Button className={classNames(classes.submitBtn)}
+                                                    onClick={() => calculateTax(country, salary)}> Calculate</Button>
                     </div>
 
 
@@ -119,7 +118,8 @@ const useStyles = makeStyles(theme => ({
     },
     formControl: {
         margin: 10,
-        display: "flex"
+        display: "flex",
+
     },
     input: {
         padding: "10px 14px"
@@ -131,9 +131,10 @@ const useStyles = makeStyles(theme => ({
         maxWidth: 180
     },
     submitBtn: {
-        [theme.breakpoints.down("xs")]: {
-            width: "100%"
-        },
+        // [theme.breakpoints.down("xs")]: {
+        //     width: "50%"
+        // },
+        width: "150px",
         background: '#126b0f',
         float: "right",
         marginTop: "28px",
