@@ -1,0 +1,47 @@
+.field {
+    /*width: 50px;*/
+    align-content: start;
+    flex: 1;
+    flex-direction: row;
+    margin: 10px;
+}
+
+.salary {
+    flex: 1;
+}
+
+.results {
+    margin-top: 30px;
+    margin-left: 20px;
+    display: flex;
+}
+
+.label {
+    margin-right: 10px;
+    align-content: start;
+    font-family: "Roboto Medium";
+    font-size: 20px;
+
+}
+
+.value {
+    text-align: right;
+    font-family: "Roboto Black";
+    font-size: 20px;
+    border-left:5px solid green;
+    background: #87d691;
+    width: 150px;
+    padding-right:5px;
+}
+#tax {
+    border-left:5px solid #d00c06;
+    background: #d79c5d;
+}
+
+.stage {
+    margin:20px;
+    padding: 10px;
+    text-align: center;
+    display:flex;
+    background: #fbfffc;
+}

@@ -1,5 +1,5 @@
 import styled from 'styled-components'
-import '../Salary.css'
+import './Salary.css'
 import {useState} from "react"
 import {
     Button, FormControl, InputLabel, MenuItem, Select, Input
@@ -35,11 +35,11 @@ export const SalaryCalculation = () => {
     const classes = useStyles();
 
     return (
-        <StyledStage>
+        <div className="stage">
             <div className="salary">
                 <div className="field">
                     <FormControl className={classNames(classes.formControl, classes.text)}>
-                        <InputLabel style={{fontSize: '18px'}}>Country</InputLabel>
+                        <InputLabel style={{fontSize: '24px'}}>Country</InputLabel>
                         <Select
                             labelId="demo-simple-select-label"
                             id="demo-simple-select"
@@ -54,7 +54,7 @@ export const SalaryCalculation = () => {
                 </div>
                 <div className="field">
                     <FormControl className={classNames(classes.formControl, classes.text)}>
-                        <InputLabel>Salary</InputLabel>
+                        <InputLabel style={{fontSize: '19px'}}>Annual Salary</InputLabel>
                         <Input onChange={e => setSalary(+e.target.value)}/>
                     </FormControl>
                 </div>
@@ -66,11 +66,11 @@ export const SalaryCalculation = () => {
                 <div className="results">
 
                     <div className="label">Tax</div>
-                    <div className="value">{tax}</div>
+                    <div className="value" id="tax">{tax}</div>
                 </div>
 
             </div>
-        </StyledStage>
+        </div>
     )
 }
 
@@ -119,13 +119,14 @@ const useStyles = makeStyles(theme => ({
         [theme.breakpoints.down("xs")]: {
             width: "100%"
         },
-        background: '#4288e3',
+        background: '#126b0f',
         float: "right",
         marginTop: "20px",
-        color: "black",
+        color: "#f0f6ef",
         '&:hover': {
-            background: '#3a7acf',
-        }
+            background: '#288a3c',
+        },
+        fontSize: "14px",
     }
 }));
 
@@ -135,6 +136,7 @@ const StyledStage = styled.div`
     padding: 10px;
     text-align: center;
     display:flex;
+    background: blue;
 `
 
 interface ApiResponse {

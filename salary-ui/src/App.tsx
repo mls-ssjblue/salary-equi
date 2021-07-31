@@ -10,8 +10,8 @@ const App: React.FC = () => {
   return (
     <div className="App">
       <StyledContainer>
-        <Container maxWidth="sm">
           <Header />
+          <Container maxWidth="sm">
           <SalaryContainer />
         </Container>
       </StyledContainer>
