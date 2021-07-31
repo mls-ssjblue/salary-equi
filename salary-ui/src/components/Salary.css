@@ -14,8 +14,14 @@
     margin-top: 30px;
     margin-left: 20px;
     display: flex;
-}
+    flex-direction: column;
 
+}
+.result{
+    display: flex;
+    margin-top:10px;
+
+}
 .label {
     margin-right: 10px;
     align-content: start;
@@ -25,7 +31,8 @@
 }
 
 .value {
-    text-align: right;
+    margin-left:auto;
+    margin-right:50px;
     font-family: "Roboto Black";
     font-size: 20px;
     border-left:5px solid green;

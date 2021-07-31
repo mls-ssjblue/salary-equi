@@ -15,11 +15,15 @@ public class TaxController{
     }
 
     private TaxService taxService;
+
+
     @GetMapping("/taxPayable")
     public TaxResponse getTaxPayable(@RequestParam("country") String country,
                                      @RequestParam("salary")BigDecimal salary){
-        return new TaxResponse(taxService.getTaxPayable(country,salary));
-
+        BigDecimal annualTax = taxService.getTaxPayable(country,salary);
+        BigDecimal monthlyTax = taxService.monthlyTaxPayable(annualTax);
+        return new TaxResponse(annualTax, monthlyTax);
     }
+
 
 }

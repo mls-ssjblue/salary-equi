@@ -7,9 +7,13 @@ import java.math.BigDecimal;
 public class TaxResponse {
 
     @JsonProperty
-    BigDecimal taxPayable;
+    BigDecimal annualTax;
 
-    public TaxResponse(BigDecimal taxPayable) {
-        this.taxPayable = taxPayable;
+    @JsonProperty
+    BigDecimal monthlyTax;
+
+    public TaxResponse(BigDecimal annualTax, BigDecimal monthlyTax) {
+        this.annualTax = annualTax;
+        this.monthlyTax = monthlyTax;
     }
 }

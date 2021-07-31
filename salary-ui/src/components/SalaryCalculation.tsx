@@ -3,15 +3,16 @@ import './Salary.css'
 import {useState} from "react"
 import {
     Button, FormControl, InputLabel, MenuItem, Select, Input
-} from "@material-ui/core";
-import {makeStyles} from "@material-ui/core/styles";
-import classNames from "classnames";
-import '@fontsource/roboto';
+} from "@material-ui/core"
+import {makeStyles} from "@material-ui/core/styles"
+import classNames from "classnames"
+import '@fontsource/roboto'
 
 export const SalaryCalculation = () => {
     const [salary, setSalary] = useState(0)
     const [country, setCountry] = useState('Singapore')
-    const [tax, setTax] = useState(0)
+    const [annualTax, setAnnualTax] = useState(0)
+    const [monthlyTax, setMonthlyTax] = useState(0)
 
 
     const calculateTax = (country: string, salary: number) => {
@@ -23,16 +24,15 @@ export const SalaryCalculation = () => {
             }
         }).then(response => response.json())
             .then(response => {
-                console.log(response);
-                setTax(response.taxPayable);
-                console.log(tax);
-            });
+                setAnnualTax(response.annualTax)
+                setMonthlyTax(response.monthlyTax)
+            })
 
     }
     const handleChange = (event: any) => {
-        setCountry(event.target.value);
-    };
-    const classes = useStyles();
+        setCountry(event.target.value)
+    }
+    const classes = useStyles()
 
     return (
         <div className="stage">
@@ -64,9 +64,17 @@ export const SalaryCalculation = () => {
                             onClick={() => calculateTax(country, salary)}> Calculate</Button>
                 </div>
                 <div className="results">
+                    <div className="result">
+                        <div className="label">Annual Tax</div>
+                        <div className="value" id="tax">{annualTax}</div>
+                    </div>
+                    <div className="result">
+                        <div className="label">Monthly Tax</div>
 
-                    <div className="label">Tax</div>
-                    <div className="value" id="tax">{tax}</div>
+                        <div className="value" id="tax">{monthlyTax}</div>
+                    </div>
+
+
                 </div>
 
             </div>
@@ -121,14 +129,14 @@ const useStyles = makeStyles(theme => ({
         },
         background: '#126b0f',
         float: "right",
-        marginTop: "20px",
+        marginTop: "28px",
         color: "#f0f6ef",
         '&:hover': {
             background: '#288a3c',
         },
         fontSize: "14px",
     }
-}));
+}))
 
 
 const StyledStage = styled.div`
