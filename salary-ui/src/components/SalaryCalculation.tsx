@@ -1,8 +1,9 @@
 import styled from 'styled-components'
 import '../Salary.css'
 import {useState} from "react"
-import {Button, FormControl, InputLabel, MenuItem, Select, Input, TextField,
-Typography} from "@material-ui/core";
+import {
+    Button, FormControl, InputLabel, MenuItem, Select, Input
+} from "@material-ui/core";
 import {makeStyles} from "@material-ui/core/styles";
 import classNames from "classnames";
 import '@fontsource/roboto';
@@ -62,10 +63,12 @@ export const SalaryCalculation = () => {
                     <Button className={classNames(classes.submitBtn)}
                             onClick={() => calculateTax(country, salary)}> Calculate</Button>
                 </div>
-
                 <div className="results">
-                    <Typography variant="h6" style={{textAlign: 'left'}}>Tax: {tax}</Typography>
+
+                    <div className="label">Tax</div>
+                    <div className="value">{tax}</div>
                 </div>
+
             </div>
         </StyledStage>
     )
@@ -116,9 +119,13 @@ const useStyles = makeStyles(theme => ({
         [theme.breakpoints.down("xs")]: {
             width: "100%"
         },
-        background:'cadetblue',
+        background: '#4288e3',
         float: "right",
-        marginTop: "20px"
+        marginTop: "20px",
+        color: "black",
+        '&:hover': {
+            background: '#3a7acf',
+        }
     }
 }));
 
