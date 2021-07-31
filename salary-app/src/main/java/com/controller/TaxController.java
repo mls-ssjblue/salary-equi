@@ -22,7 +22,8 @@ public class TaxController{
                                      @RequestParam("salary")BigDecimal salary){
         BigDecimal annualTax = taxService.getTaxPayable(country,salary);
         BigDecimal monthlyTax = taxService.monthlyTaxPayable(annualTax);
-        return new TaxResponse(annualTax, monthlyTax);
+        return new TaxResponse(annualTax, monthlyTax,
+                taxService.getNetMonthlySalary(monthlyTax, salary));
     }
 
 
