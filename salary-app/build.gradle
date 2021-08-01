@@ -27,8 +27,9 @@ test {
 }
 
 task copyWebApp(type: Copy) {
-    from '$rootDir/salary-ui/build'
-    into '$rootDir/salary-app/build/resources/main/static/.'
+    project.logger.lifecycle("Root Dir: $rootDir")
+    from "$rootDir/salary-ui/build"
+    into "$rootDir/salary-app/build/resources/main/static/."
 }
 
 bootJar.dependsOn(copyWebApp)
