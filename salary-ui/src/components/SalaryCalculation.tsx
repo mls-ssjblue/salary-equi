@@ -17,7 +17,7 @@ export const SalaryCalculation = () => {
 
 
     const calculateTax = (country: string, salary: number) => {
-        fetch(`http://localhost:8080/api/v1/taxPayable?country=${country}&salary=${salary}`, {
+        fetch(`/api/v1/taxPayable?country=${country}&salary=${salary}`, {
             "method": "GET",
             "headers": {
                 "content-type": "application/json",
