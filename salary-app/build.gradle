@@ -32,5 +32,11 @@ task copyWebApp(type: Copy) {
     into "$rootDir/salary-app/build/resources/main/static/."
 }
 
-bootJar.dependsOn(copyWebApp)
+bootJar {
+    baseName='salary-jar'
+    version='0.1.0'
+    dependsOn(copyWebApp)
+}
+//bootJar.dependsOn(copyWebApp)
+
 compileJava.dependsOn ':salary-ui:build'
