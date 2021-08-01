@@ -18,8 +18,18 @@ dependencies {
     implementation 'com.opencsv:opencsv:5.2'
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.7.0'
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.7.0'
+    runtimeOnly project(':salary-ui')
+
 }
 
 test {
     useJUnitPlatform()
 }
+
+task copyWebApp(type: Copy) {
+    from '$rootDir/salary-ui/build'
+    into '$rootDir/salary-app/build/resources/main/static/.'
+}
+
+bootJar.dependsOn(copyWebApp)
+compileJava.dependsOn ':salary-ui:build'
