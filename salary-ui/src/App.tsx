@@ -1,12 +1,12 @@
-import React from "react"
-import logo from "./logo.svg"
+import React, {useEffect} from "react"
 import "./App.css"
 import styled from "styled-components"
 import {Header} from "./header/Header"
 import {SalaryContainer} from "./components/SalaryContainer"
-import Container from "@material-ui/core/Container"
+import {setup} from "./services/StartupService"
 
 const App: React.FC = () => {
+
     return (
         <div className="App">
             <Header/>

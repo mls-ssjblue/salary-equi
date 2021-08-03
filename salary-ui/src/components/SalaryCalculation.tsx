@@ -1,12 +1,13 @@
 import styled from 'styled-components'
 import './Salary.css'
-import {useState} from "react"
+import {useEffect, useState} from "react"
 import {
     Button, FormControl, InputLabel, MenuItem, Select, Input
 } from "@material-ui/core"
 import {makeStyles} from "@material-ui/core/styles"
 import classNames from "classnames"
 import '@fontsource/roboto'
+import {countries, setup} from '../services/StartupService'
 
 export const SalaryCalculation = () => {
     const [salary, setSalary] = useState(0)
@@ -14,7 +15,9 @@ export const SalaryCalculation = () => {
     const [annualTax, setAnnualTax] = useState(0)
     const [monthlyTax, setMonthlyTax] = useState(0)
     const [netMonthlySalary, setNetMonthlySalary] = useState(0)
-
+    useEffect(() => {
+        setup();
+    }, []);
 
     const calculateTax = (country: string, salary: number) => {
         fetch(`/api/v1/taxPayable?country=${country}&salary=${salary}`, {
@@ -36,6 +39,7 @@ export const SalaryCalculation = () => {
     }
     const classes = useStyles()
 
+    console.log(countries)
     return (
         <div className="stage-container">
             <div className="stage">
@@ -48,8 +52,17 @@ export const SalaryCalculation = () => {
                             value={country}
                             onChange={handleChange}
                         >
-                            <MenuItem value={"Singapore"}>Singapore</MenuItem>
-                            <MenuItem value={"UK"}>UK</MenuItem>
+
+                            {countries?.map((item) => {
+                                // console.log(item.countryCode)
+                                return (
+                                    <MenuItem key={item.countryCode} value={item.name}>
+                                        {item.name}
+                                    </MenuItem>
+                                );
+                            })}
+                            {/*<MenuItem value={"Singapore"}>Singapore</MenuItem>*/}
+                            {/*<MenuItem value={"UK"}>UK</MenuItem>*/}
                         </Select>
                     </FormControl>
 
