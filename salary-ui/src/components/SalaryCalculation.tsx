@@ -1,11 +1,11 @@
 import styled from 'styled-components'
 import './Salary.css'
-import {useCallback, useEffect, useState} from "react"
+import {useEffect, useState} from "react"
 import {Button, FormControl, Input, InputLabel, MenuItem, Select} from "@material-ui/core"
 import {makeStyles} from "@material-ui/core/styles"
 import classNames from "classnames"
 import '@fontsource/roboto'
-import {Country, countryMap, countries} from '../services/StartupService'
+import {countries, Country, countryMap} from '../services/StartupService'
 
 const getCurrencyFormattedValue = (country: Country, amount: number) => {
     return new Intl.NumberFormat(country.locale, {
@@ -16,11 +16,11 @@ const getCurrencyFormattedValue = (country: Country, amount: number) => {
 
 export const SalaryCalculation = () => {
     const [salary, setSalary] = useState(0)
-    const [currentCountryName, setCountryName] = useState('Singapore')
-
     const [annualTax, setAnnualTax] = useState(0)
     const [monthlyTax, setMonthlyTax] = useState(0)
     const [netMonthlySalary, setNetMonthlySalary] = useState(0)
+
+    const [currentCountryName, setCountryName] = useState('Singapore')
     const [currentCountry, setCurrentCountry] = useState(countries[0])
 
     let currencyFormattedValue = new Intl.NumberFormat(currentCountry.locale, {
