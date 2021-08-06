@@ -7,6 +7,12 @@ import classNames from "classnames"
 import '@fontsource/roboto'
 import {Country, countryMap, countries} from '../services/StartupService'
 
+const getCurrencyFormattedValue = (country: Country, amount: number) => {
+    return new Intl.NumberFormat(country.locale, {
+        style: 'currency',
+        currency: country.currency
+    }).format(amount)
+}
 
 export const SalaryCalculation = () => {
     const [salary, setSalary] = useState(0)
@@ -15,13 +21,13 @@ export const SalaryCalculation = () => {
     const [annualTax, setAnnualTax] = useState(0)
     const [monthlyTax, setMonthlyTax] = useState(0)
     const [netMonthlySalary, setNetMonthlySalary] = useState(0)
-
-
     const [currentCountry, setCurrentCountry] = useState(countries[0])
+
     let currencyFormattedValue = new Intl.NumberFormat(currentCountry.locale, {
         style: 'currency',
         currency: currentCountry.currency
     }).format(0)
+
     useEffect(() => {
         currencyFormattedValue = new Intl.NumberFormat(currentCountry.locale, {
             style: 'currency',
@@ -55,7 +61,6 @@ export const SalaryCalculation = () => {
         }
     }
     const classes = useStyles()
-
 
 
     return (
@@ -93,23 +98,22 @@ export const SalaryCalculation = () => {
                 <div className="results">
                     <div className="result">
                         <div className="label">Annual Tax</div>
-                        <div className="value" id="tax">{annualTax}</div>
+                        <div className="value" id="tax">
+                            {getCurrencyFormattedValue(currentCountry, annualTax)}</div>
                     </div>
                     <div className="result">
                         <div className="label">Monthly Tax</div>
 
-                        <div className="value" id="tax">{monthlyTax}</div>
+                        <div className="value" id="tax">{getCurrencyFormattedValue(currentCountry, monthlyTax)}</div>
                     </div>
                     <div className="result">
                         <div className="label">Net Monthly Salary</div>
 
-                        <div className="value" id="nms">{netMonthlySalary}</div>
+                        <div className="value" id="nms">{getCurrencyFormattedValue(currentCountry, netMonthlySalary)}</div>
                     </div>
                     <div id="submit-button"><Button className={classNames(classes.submitBtn)}
                                                     onClick={() => calculateTax(currentCountryName, salary)}> Calculate</Button>
                     </div>
-
-
                 </div>
 
             </div>
