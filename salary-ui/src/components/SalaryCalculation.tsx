@@ -1,24 +1,33 @@
 import styled from 'styled-components'
 import './Salary.css'
-import {useEffect, useState} from "react"
-import {
-    Button, FormControl, InputLabel, MenuItem, Select, Input
-} from "@material-ui/core"
+import {useCallback, useEffect, useState} from "react"
+import {Button, FormControl, Input, InputLabel, MenuItem, Select} from "@material-ui/core"
 import {makeStyles} from "@material-ui/core/styles"
 import classNames from "classnames"
 import '@fontsource/roboto'
-import {countries, setup} from '../services/StartupService'
+import {Country, countryMap, countries} from '../services/StartupService'
+
 
 export const SalaryCalculation = () => {
     const [salary, setSalary] = useState(0)
-    const [country, setCountry] = useState('Singapore')
+    const [currentCountryName, setCountryName] = useState('Singapore')
+
     const [annualTax, setAnnualTax] = useState(0)
     const [monthlyTax, setMonthlyTax] = useState(0)
     const [netMonthlySalary, setNetMonthlySalary] = useState(0)
-    useEffect(() => {
-        setup();
-    }, []);
 
+
+    const [currentCountry, setCurrentCountry] = useState(countries[0])
+    let currencyFormattedValue = new Intl.NumberFormat(currentCountry.locale, {
+        style: 'currency',
+        currency: currentCountry.currency
+    }).format(0)
+    useEffect(() => {
+        currencyFormattedValue = new Intl.NumberFormat(currentCountry.locale, {
+            style: 'currency',
+            currency: currentCountry.currency
+        }).format(0)
+    }, [currentCountry])
     const calculateTax = (country: string, salary: number) => {
         fetch(`/api/v1/taxPayable?country=${country}&salary=${salary}`, {
             "method": "GET",
@@ -35,11 +44,20 @@ export const SalaryCalculation = () => {
 
     }
     const handleChange = (event: any) => {
-        setCountry(event.target.value)
+        const c = countryMap.get(event.target.value)
+        if (c != undefined) {
+            setCountryName(c.name)
+            setCurrentCountry(c)
+
+            console.log('current country :- ' + currentCountry.name)
+            console.log('current currency :- ' + currentCountry.currency)
+            console.log('current locale :- ' + currentCountry.locale)
+        }
     }
     const classes = useStyles()
 
-    console.log(countries)
+
+
     return (
         <div className="stage-container">
             <div className="stage">
@@ -49,20 +67,17 @@ export const SalaryCalculation = () => {
                         <Select
                             labelId="demo-simple-select-label"
                             id="demo-simple-select"
-                            value={country}
+                            value={currentCountryName}
                             onChange={handleChange}
                         >
 
                             {countries?.map((item) => {
-                                // console.log(item.countryCode)
                                 return (
                                     <MenuItem key={item.countryCode} value={item.name}>
                                         {item.name}
                                     </MenuItem>
-                                );
+                                )
                             })}
-                            {/*<MenuItem value={"Singapore"}>Singapore</MenuItem>*/}
-                            {/*<MenuItem value={"UK"}>UK</MenuItem>*/}
                         </Select>
                     </FormControl>
 
@@ -70,7 +85,8 @@ export const SalaryCalculation = () => {
                 <div className="field">
                     <FormControl className={classNames(classes.formControl, classes.text)}>
                         <InputLabel style={{fontSize: '19px'}}>Annual Salary</InputLabel>
-                        <Input onChange={e => setSalary(+e.target.value)}/>
+                        <Input onChange={e => setSalary(+e.target.value)}
+                               placeholder={currencyFormattedValue}/>
                     </FormControl>
                 </div>
 
@@ -90,7 +106,7 @@ export const SalaryCalculation = () => {
                         <div className="value" id="nms">{netMonthlySalary}</div>
                     </div>
                     <div id="submit-button"><Button className={classNames(classes.submitBtn)}
-                                                    onClick={() => calculateTax(country, salary)}> Calculate</Button>
+                                                    onClick={() => calculateTax(currentCountryName, salary)}> Calculate</Button>
                     </div>
 
 

@@ -3,16 +3,20 @@ import "./App.css"
 import styled from "styled-components"
 import {Header} from "./header/Header"
 import {SalaryContainer} from "./components/SalaryContainer"
-import {setup} from "./services/StartupService"
+import {setupCountries, setupMap} from './services/StartupService'
 
 const App: React.FC = () => {
+
+
+    setupCountries()
+    setupMap()
 
     return (
         <div className="App">
             <Header/>
             <StyledContainer>
                 {/*<Container maxWidth="sm">*/}
-                    <SalaryContainer/>
+                <SalaryContainer/>
                 {/*</Container>*/}
             </StyledContainer>
         </div>
