@@ -1,7 +1,7 @@
 import styled from 'styled-components'
 import './Salary.css'
 import {useEffect, useState} from "react"
-import {Button, FormControl, Input, InputLabel, MenuItem, Select} from "@material-ui/core"
+import {Button, FormControl, FormControlLabel, Input, InputLabel, MenuItem, Select, Switch} from "@material-ui/core"
 import {makeStyles} from "@material-ui/core/styles"
 import classNames from "classnames"
 import '@fontsource/roboto'
@@ -22,6 +22,8 @@ export const SalaryCalculation = () => {
 
     const [currentCountryName, setCountryName] = useState('Singapore')
     const [currentCountry, setCurrentCountry] = useState(countries[0])
+    const [showInUsd, setShowInUsd] = useState(false)
+    const [currencyMultiplier, setCurrencyMultiplier] = useState(1)
 
     let currencyFormattedValue = new Intl.NumberFormat(currentCountry.locale, {
         style: 'currency',
@@ -34,6 +36,10 @@ export const SalaryCalculation = () => {
             currency: currentCountry.currency
         }).format(0)
     }, [currentCountry])
+
+    useEffect(() => {
+
+    }, [showInUsd])
     const calculateTax = (country: string, salary: number) => {
         fetch(`/api/v1/taxPayable?country=${country}&salary=${salary}`, {
             "method": "GET",
@@ -47,7 +53,6 @@ export const SalaryCalculation = () => {
                 setMonthlyTax(response.monthlyTax)
                 setNetMonthlySalary(response.netMonthlySalary)
             })
-
     }
     const handleChange = (event: any) => {
         const c = countryMap.get(event.target.value)
@@ -61,7 +66,6 @@ export const SalaryCalculation = () => {
         }
     }
     const classes = useStyles()
-
 
     return (
         <div className="stage-container">
@@ -96,6 +100,19 @@ export const SalaryCalculation = () => {
                 </div>
 
                 <div className="results">
+                    <div className="result">
+                        {/*<div className="label">Show in USD</div>*/}
+                        <div >
+                            <FormControlLabel control={ <Switch
+                                checked={showInUsd}
+                                onChange={()=>setShowInUsd(!showInUsd)}
+                                color="primary"
+                                name="usdToggle"
+                                inputProps={{ 'aria-label': 'primary checkbox' }}
+                            />} label="Show in USD"/>
+
+                        </div>
+                    </div>
                     <div className="result">
                         <div className="label">Annual Tax</div>
                         <div className="value" id="tax">
