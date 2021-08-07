@@ -4,7 +4,7 @@ import {useEffect, useState} from "react"
 import {
     Button,
     FormControl,
-    FormControlLabel,
+    FormControlLabel, Icon,
     Input,
     InputLabel,
     MenuItem,
@@ -17,7 +17,7 @@ import classNames from "classnames"
 import '@fontsource/roboto'
 import {countries, Country, countryMap} from '../services/StartupService'
 import {green, grey} from '@material-ui/core/colors'
-
+import {AddCircleOutline} from '@material-ui/icons'
 const getCurrencyFormattedValue = (country: Country, amount: number, isUsdToggled: boolean,
                                    currencyToUsd: number) => {
     if (isUsdToggled) {
@@ -193,6 +193,7 @@ export const SalaryCalculation = () => {
                     <div id="submit-button"><Button className={classNames(classes.submitBtn)}
                                                     onClick={() => calculateTax(currentCountryName, salary)}> Calculate</Button>
                     </div>
+                     <AddCircleOutline style={{ fontSize: 40 }} onClick={()=>console.log('e')}/>
                 </div>
 
             </div>
