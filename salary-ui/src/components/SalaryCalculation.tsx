@@ -58,6 +58,7 @@ export const SalaryCalculation = () => {
             style: 'currency',
             currency: currentCountry.currency
         }).format(0)
+        calculateTax(currentCountryName, salary)
     }, [currentCountry])
 
     useEffect(() => {
