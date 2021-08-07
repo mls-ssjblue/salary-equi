@@ -1,21 +1,36 @@
 import styled from 'styled-components'
 import './Salary.css'
 import {useEffect, useState} from "react"
-import {Button, FormControl, Input, InputLabel, MenuItem, Select} from "@material-ui/core"
+import {
+    Button,
+    FormControl,
+    FormControlLabel,
+    Input,
+    InputLabel,
+    MenuItem,
+    Select,
+    Switch,
+    withStyles
+} from "@material-ui/core"
 import {makeStyles} from "@material-ui/core/styles"
 import classNames from "classnames"
 import '@fontsource/roboto'
 import {countries, Country, countryMap} from '../services/StartupService'
-import {fx} from "money"
+import {green, grey} from '@material-ui/core/colors'
 
 const getCurrencyFormattedValue = (country: Country, amount: number, isUsdToggled: boolean) => {
-    return !isUsdToggled ? new Intl.NumberFormat(country.locale, {
-        style: 'currency',
-        currency: country.currency
-    }).format(amount) : new Intl.NumberFormat(country.locale, {
-        style: 'currency',
-        currency: 'USD'
-    }).format(fx.convert(amount, {from: country.currency, to: "USD"}))
+    if (isUsdToggled) {
+        return new Intl.NumberFormat('en-US', {
+            style: 'currency',
+            currency: "USD"
+        }).format(amount)
+    } else {
+        return new Intl.NumberFormat(country.locale, {
+            style: 'currency',
+            currency: country.currency
+        }).format(amount)
+    }
+
 }
 
 export const SalaryCalculation = () => {
@@ -26,7 +41,8 @@ export const SalaryCalculation = () => {
 
     const [currentCountryName, setCountryName] = useState('Singapore')
     const [currentCountry, setCurrentCountry] = useState(countries[0])
-    const [usdToggle, setUsdToggle] = useState(false)
+    const [showInUsd, setShowInUsd] = useState(false)
+    const [currencyRates, setCurrencyRates] = useState({})
 
     let currencyFormattedValue = new Intl.NumberFormat(currentCountry.locale, {
         style: 'currency',
@@ -39,6 +55,27 @@ export const SalaryCalculation = () => {
             currency: currentCountry.currency
         }).format(0)
     }, [currentCountry])
+
+    useEffect(() => {
+        console.log('Fetching currency')
+        try {
+            fetch(`https://currencyapi.net/api/v1/rates?key=9GDrLrEkr2W5XIL1rpDAHQqA9PqpDAW8rxNM&base=USD`, {
+                "method": "GET",
+                "headers": {
+                    "content-type": "application/json",
+                    "accept": "application/json"
+                }
+            }).then(response => response.json())
+                .then(response => {
+                    setCurrencyRates(response.rates)
+                })
+        } catch (e) {
+            console.log('Error occurred while fetching currency rates: ' + e)
+        }finally {
+        }
+    }, [showInUsd])
+
+
     const calculateTax = (country: string, salary: number) => {
         fetch(`/api/v1/taxPayable?country=${country}&salary=${salary}`, {
             "method": "GET",
@@ -52,7 +89,6 @@ export const SalaryCalculation = () => {
                 setMonthlyTax(response.monthlyTax)
                 setNetMonthlySalary(response.netMonthlySalary)
             })
-
     }
     const handleChange = (event: any) => {
         const c = countryMap.get(event.target.value)
@@ -66,7 +102,6 @@ export const SalaryCalculation = () => {
         }
     }
     const classes = useStyles()
-
 
     return (
         <div className="stage-container">
@@ -102,21 +137,35 @@ export const SalaryCalculation = () => {
 
                 <div className="results">
                     <div className="result">
+                        {/*<div className="label">Show in USD</div>*/}
+                        <div>
+                            <FormControlLabel control={
+                                <GreenSwitch
+                                    checked={showInUsd}
+                                    onChange={() => setShowInUsd(!showInUsd)}
+                                    color="primary"
+                                    name="usdToggle"
+                                    inputProps={{'aria-label': 'primary checkbox'}}
+                                />} label="Show in USD"/>
+
+                        </div>
+                    </div>
+                    <div className="result">
                         <div className="label">Annual Tax</div>
                         <div className="value" id="tax">
-                            {getCurrencyFormattedValue(currentCountry, annualTax, false)}</div>
+                            {getCurrencyFormattedValue(currentCountry, annualTax, showInUsd)}</div>
                     </div>
                     <div className="result">
                         <div className="label">Monthly Tax</div>
 
                         <div className="value"
-                             id="tax">{getCurrencyFormattedValue(currentCountry, monthlyTax, false)}</div>
+                             id="tax">{getCurrencyFormattedValue(currentCountry, monthlyTax, showInUsd)}</div>
                     </div>
                     <div className="result">
                         <div className="label">Net Monthly Salary</div>
 
                         <div className="value"
-                             id="nms">{getCurrencyFormattedValue(currentCountry, netMonthlySalary, false)}</div>
+                             id="nms">{getCurrencyFormattedValue(currentCountry, netMonthlySalary, showInUsd)}</div>
                     </div>
                     <div id="submit-button"><Button className={classNames(classes.submitBtn)}
                                                     onClick={() => calculateTax(currentCountryName, salary)}> Calculate</Button>
@@ -198,3 +247,18 @@ const StyledStage = styled.div`
 interface ApiResponse {
     tax: number
 }
+
+
+const GreenSwitch = withStyles({
+    switchBase: {
+        color: grey[300],
+        '&$checked': {
+            color: green[500],
+        },
+        '&$checked + $track': {
+            backgroundColor: green[500],
+        },
+    },
+    checked: {},
+    track: {},
+})(Switch)
