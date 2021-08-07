@@ -24,6 +24,6 @@
     "strictNullChecks": true
   },
   "include": [
-    "src"
+    "src","decs.d.ts"
   ]
 }
