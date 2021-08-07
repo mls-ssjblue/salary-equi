@@ -33,6 +33,7 @@ const getCurrencyFormattedValue = (country: Country, amount: number, isUsdToggle
     }
 
 }
+
 interface LooseObject {
     [key: string]: any
 }
@@ -78,7 +79,7 @@ export const SalaryCalculation = () => {
                 })
         } catch (e) {
             console.log('Error occurred while fetching currency rates: ' + e)
-        }finally {
+        } finally {
         }
     }, [showInUsd])
 
@@ -137,7 +138,12 @@ export const SalaryCalculation = () => {
                 <div className="field">
                     <FormControl className={classNames(classes.formControl, classes.text)}>
                         <InputLabel style={{fontSize: '19px'}}>Annual Salary</InputLabel>
-                        <Input onChange={e => setSalary(+e.target.value)}
+                        <Input onChange={e => {
+                            setSalary(+e.target.value)
+                            setAnnualTax(0)
+                            setMonthlyTax(0)
+                            setNetMonthlySalary(0)
+                        }}
                                placeholder={currencyFormattedValue}/>
                     </FormControl>
                 </div>
@@ -161,28 +167,28 @@ export const SalaryCalculation = () => {
                         <div className="label">Annual Tax</div>
                         <div className="value" id="tax">
                             {getCurrencyFormattedValue(currentCountry, annualTax, showInUsd,
-                            1/currencyRates[currentCountry.currency])}</div>
+                                1 / currencyRates[currentCountry.currency])}</div>
                     </div>
                     <div className="result">
                         <div className="label">Monthly Tax</div>
 
                         <div className="value"
                              id="tax">{getCurrencyFormattedValue(currentCountry, monthlyTax, showInUsd,
-                        1/currencyRates[currentCountry.currency])}</div>
+                            1 / currencyRates[currentCountry.currency])}</div>
                     </div>
                     <div className="result">
                         <div className="label">Monthly Salary</div>
 
                         <div className="value"
-                             id="nms">{getCurrencyFormattedValue(currentCountry, salary/12, showInUsd,
-                        1/currencyRates[currentCountry.currency])}</div>
+                             id="nms">{getCurrencyFormattedValue(currentCountry, salary / 12, showInUsd,
+                            1 / currencyRates[currentCountry.currency])}</div>
                     </div>
                     <div className="result">
                         <div className="label">Net Monthly Salary</div>
 
                         <div className="value"
                              id="nms">{getCurrencyFormattedValue(currentCountry, netMonthlySalary, showInUsd,
-                        1/currencyRates[currentCountry.currency])}</div>
+                            1 / currencyRates[currentCountry.currency])}</div>
                     </div>
                     <div id="submit-button"><Button className={classNames(classes.submitBtn)}
                                                     onClick={() => calculateTax(currentCountryName, salary)}> Calculate</Button>
