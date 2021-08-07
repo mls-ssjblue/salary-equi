@@ -18,12 +18,13 @@ import '@fontsource/roboto'
 import {countries, Country, countryMap} from '../services/StartupService'
 import {green, grey} from '@material-ui/core/colors'
 
-const getCurrencyFormattedValue = (country: Country, amount: number, isUsdToggled: boolean) => {
+const getCurrencyFormattedValue = (country: Country, amount: number, isUsdToggled: boolean,
+                                   currencyToUsd: number) => {
     if (isUsdToggled) {
         return new Intl.NumberFormat('en-US', {
             style: 'currency',
             currency: "USD"
-        }).format(amount)
+        }).format(amount * currencyToUsd)
     } else {
         return new Intl.NumberFormat(country.locale, {
             style: 'currency',
@@ -31,6 +32,9 @@ const getCurrencyFormattedValue = (country: Country, amount: number, isUsdToggle
         }).format(amount)
     }
 
+}
+interface LooseObject {
+    [key: string]: any
 }
 
 export const SalaryCalculation = () => {
@@ -42,7 +46,7 @@ export const SalaryCalculation = () => {
     const [currentCountryName, setCountryName] = useState('Singapore')
     const [currentCountry, setCurrentCountry] = useState(countries[0])
     const [showInUsd, setShowInUsd] = useState(false)
-    const [currencyRates, setCurrencyRates] = useState({})
+    const [currencyRates, setCurrencyRates] = useState({} as LooseObject)
 
     let currencyFormattedValue = new Intl.NumberFormat(currentCountry.locale, {
         style: 'currency',
@@ -68,6 +72,8 @@ export const SalaryCalculation = () => {
             }).then(response => response.json())
                 .then(response => {
                     setCurrencyRates(response.rates)
+                    console.log(currencyRates)
+                    console.log(currencyRates[currentCountry.currency])
                 })
         } catch (e) {
             console.log('Error occurred while fetching currency rates: ' + e)
@@ -153,19 +159,29 @@ export const SalaryCalculation = () => {
                     <div className="result">
                         <div className="label">Annual Tax</div>
                         <div className="value" id="tax">
-                            {getCurrencyFormattedValue(currentCountry, annualTax, showInUsd)}</div>
+                            {getCurrencyFormattedValue(currentCountry, annualTax, showInUsd,
+                            1/currencyRates[currentCountry.currency])}</div>
                     </div>
                     <div className="result">
                         <div className="label">Monthly Tax</div>
 
                         <div className="value"
-                             id="tax">{getCurrencyFormattedValue(currentCountry, monthlyTax, showInUsd)}</div>
+                             id="tax">{getCurrencyFormattedValue(currentCountry, monthlyTax, showInUsd,
+                        1/currencyRates[currentCountry.currency])}</div>
+                    </div>
+                    <div className="result">
+                        <div className="label">Monthly Salary</div>
+
+                        <div className="value"
+                             id="nms">{getCurrencyFormattedValue(currentCountry, salary/12, showInUsd,
+                        1/currencyRates[currentCountry.currency])}</div>
                     </div>
                     <div className="result">
                         <div className="label">Net Monthly Salary</div>
 
                         <div className="value"
-                             id="nms">{getCurrencyFormattedValue(currentCountry, netMonthlySalary, showInUsd)}</div>
+                             id="nms">{getCurrencyFormattedValue(currentCountry, netMonthlySalary, showInUsd,
+                        1/currencyRates[currentCountry.currency])}</div>
                     </div>
                     <div id="submit-button"><Button className={classNames(classes.submitBtn)}
                                                     onClick={() => calculateTax(currentCountryName, salary)}> Calculate</Button>
