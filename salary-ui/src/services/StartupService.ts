@@ -33,7 +33,9 @@ export function setupCountries(): Country[] {
     let inCountry = new Country('India', "IN", 70, "en-IN", 'INR')
     countries.push(inCountry)
 
-    console.log(countries)
+    let australia = new Country('Australia', "AU", 70, "en-AU", 'AUD')
+    countries.push(australia)
+
     return countries
 }
 
