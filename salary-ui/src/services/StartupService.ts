@@ -36,6 +36,9 @@ export function setupCountries(): Country[] {
     let australia = new Country('Australia', "AU", 70, "en-AU", 'AUD')
     countries.push(australia)
 
+    let hk = new Country('Hong Kong', "HK", 70, "en-HK", 'HKD')
+    countries.push(hk)
+
     return countries
 }
 

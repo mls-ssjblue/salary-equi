@@ -26,3 +26,8 @@ ID,Country,Bracket,Low,High,Tax rate
 25,Australia,3,45001,120000,32.5
 26,Australia,4,120001,180000,37
 27,Australia,5,180001,10000000,45
+28,Hong Kong,1,1,50000,2
+29,Hong Kong,2,50001,100000,6
+30,Hong Kong,3,100001,150000,10
+31,Hong Kong,4,150001,200000,14
+32,Hong Kong,5,200000,100000000,17
