@@ -1,10 +1,11 @@
 import styled from 'styled-components'
 import './Salary.css'
+import './Stage.css'
 import {useEffect, useState} from "react"
 import {
     Button,
     FormControl,
-    FormControlLabel, Icon,
+    FormControlLabel,
     Input,
     InputLabel,
     MenuItem,
@@ -17,7 +18,7 @@ import classNames from "classnames"
 import '@fontsource/roboto'
 import {countries, Country, countryMap} from '../services/StartupService'
 import {green, grey} from '@material-ui/core/colors'
-import {AddCircleOutline} from '@material-ui/icons'
+
 const getCurrencyFormattedValue = (country: Country, amount: number, isUsdToggled: boolean,
                                    currencyToUsd: number) => {
     if (isUsdToggled) {
@@ -37,10 +38,12 @@ const getCurrencyFormattedValue = (country: Country, amount: number, isUsdToggle
 interface LooseObject {
     [key: string]: any
 }
-interface props{
+
+interface props {
     id: string
 }
-export const SalaryCalculation = (id : props) => {
+
+export const SalaryCalculation = (id: props) => {
     const [salary, setSalary] = useState(0)
     const [annualTax, setAnnualTax] = useState(0)
     const [monthlyTax, setMonthlyTax] = useState(0)
@@ -113,90 +116,87 @@ export const SalaryCalculation = (id : props) => {
     const classes = useStyles()
 
     return (
-        <div className="stage-container" {...id}>
-            <div className="stage">
-                <div className="field">
-                    <FormControl className={classNames(classes.formControl, classes.text)}>
-                        <InputLabel style={{fontSize: '24px'}}>Country</InputLabel>
-                        <Select
-                            labelId="demo-simple-select-label"
-                            id="demo-simple-select"
-                            value={currentCountryName}
-                            onChange={handleChange}
-                        >
+        <div className="stage" {...id}>
+            <div className="field">
+                <FormControl className={classNames(classes.formControl, classes.text)}>
+                    <InputLabel style={{fontSize: '24px'}}>Country</InputLabel>
+                    <Select
+                        labelId="demo-simple-select-label"
+                        id="demo-simple-select"
+                        value={currentCountryName}
+                        onChange={handleChange}
+                    >
 
-                            {countries?.map((item) => {
-                                return (
-                                    <MenuItem key={item.countryCode} value={item.name}>
-                                        {item.name}
-                                    </MenuItem>
-                                )
-                            })}
-                        </Select>
-                    </FormControl>
+                        {countries?.map((item) => {
+                            return (
+                                <MenuItem key={item.countryCode} value={item.name}>
+                                    {item.name}
+                                </MenuItem>
+                            )
+                        })}
+                    </Select>
+                </FormControl>
 
+            </div>
+            <div className="field">
+                <FormControl className={classNames(classes.formControl, classes.text)}>
+                    <InputLabel style={{fontSize: '19px'}}>Annual Salary</InputLabel>
+                    <Input onChange={e => {
+                        setSalary(+e.target.value)
+                        setAnnualTax(0)
+                        setMonthlyTax(0)
+                        setNetMonthlySalary(0)
+                    }}
+                           placeholder={currencyFormattedValue}/>
+                </FormControl>
+            </div>
+
+            <div className="results">
+                <div className="result">
+                    {/*<div className="label">Show in USD</div>*/}
+                    <div>
+                        <FormControlLabel control={
+                            <GreenSwitch
+                                checked={showInUsd}
+                                onChange={() => setShowInUsd(!showInUsd)}
+                                color="primary"
+                                name="usdToggle"
+                                inputProps={{'aria-label': 'primary checkbox'}}
+                            />} label="Show in USD"/>
+
+                    </div>
                 </div>
-                <div className="field">
-                    <FormControl className={classNames(classes.formControl, classes.text)}>
-                        <InputLabel style={{fontSize: '19px'}}>Annual Salary</InputLabel>
-                        <Input onChange={e => {
-                            setSalary(+e.target.value)
-                            setAnnualTax(0)
-                            setMonthlyTax(0)
-                            setNetMonthlySalary(0)
-                        }}
-                               placeholder={currencyFormattedValue}/>
-                    </FormControl>
+                <div className="result">
+                    <div className="label">Annual Tax</div>
+                    <div className="value" id="tax">
+                        {getCurrencyFormattedValue(currentCountry, annualTax, showInUsd,
+                            1 / currencyRates[currentCountry.currency])}</div>
                 </div>
+                <div className="result">
+                    <div className="label">Monthly Tax</div>
 
-                <div className="results">
-                    <div className="result">
-                        {/*<div className="label">Show in USD</div>*/}
-                        <div>
-                            <FormControlLabel control={
-                                <GreenSwitch
-                                    checked={showInUsd}
-                                    onChange={() => setShowInUsd(!showInUsd)}
-                                    color="primary"
-                                    name="usdToggle"
-                                    inputProps={{'aria-label': 'primary checkbox'}}
-                                />} label="Show in USD"/>
-
-                        </div>
-                    </div>
-                    <div className="result">
-                        <div className="label">Annual Tax</div>
-                        <div className="value" id="tax">
-                            {getCurrencyFormattedValue(currentCountry, annualTax, showInUsd,
-                                1 / currencyRates[currentCountry.currency])}</div>
-                    </div>
-                    <div className="result">
-                        <div className="label">Monthly Tax</div>
-
-                        <div className="value"
-                             id="tax">{getCurrencyFormattedValue(currentCountry, monthlyTax, showInUsd,
-                            1 / currencyRates[currentCountry.currency])}</div>
-                    </div>
-                    <div className="result">
-                        <div className="label">Monthly Salary</div>
-
-                        <div className="value"
-                             id="nms">{getCurrencyFormattedValue(currentCountry, salary / 12, showInUsd,
-                            1 / currencyRates[currentCountry.currency])}</div>
-                    </div>
-                    <div className="result">
-                        <div className="label">Net Monthly Salary</div>
-
-                        <div className="value"
-                             id="nms">{getCurrencyFormattedValue(currentCountry, netMonthlySalary, showInUsd,
-                            1 / currencyRates[currentCountry.currency])}</div>
-                    </div>
-                    <div id="submit-button"><Button className={classNames(classes.submitBtn)}
-                                                    onClick={() => calculateTax(currentCountryName, salary)}> Calculate</Button>
-                    </div>
-                     <AddCircleOutline style={{ fontSize: 40 }} onClick={()=>console.log('e')}/>
+                    <div className="value"
+                         id="tax">{getCurrencyFormattedValue(currentCountry, monthlyTax, showInUsd,
+                        1 / currencyRates[currentCountry.currency])}</div>
                 </div>
+                <div className="result">
+                    <div className="label">Monthly Salary</div>
 
+                    <div className="value"
+                         id="nms">{getCurrencyFormattedValue(currentCountry, salary / 12, showInUsd,
+                        1 / currencyRates[currentCountry.currency])}</div>
+                </div>
+                <div className="result">
+                    <div className="label">Net Monthly Salary</div>
+
+                    <div className="value"
+                         id="nms">{getCurrencyFormattedValue(currentCountry, netMonthlySalary, showInUsd,
+                        1 / currencyRates[currentCountry.currency])}</div>
+                </div>
+                <div id="submit-button"><Button className={classNames(classes.submitBtn)}
+                                                onClick={() => calculateTax(currentCountryName, salary)}> Calculate</Button>
+                </div>
+                {/*<AddCircleOutline style={{fontSize: 40}} onClick={() => console.log('e')}/>*/}
             </div>
         </div>
     )
@@ -231,15 +231,16 @@ const useStyles = makeStyles(theme => ({
         fontWeight: 600
     },
     formControl: {
-        margin: 10,
         display: "flex",
+        height: 10
 
     },
     input: {
         padding: "10px 14px"
     },
     select: {
-        maxWidth: 130
+        maxWidth: 130,
+        padding: "5px 7px"
     },
     search: {
         maxWidth: 180
@@ -251,7 +252,7 @@ const useStyles = makeStyles(theme => ({
         width: "150px",
         background: '#126b0f',
         float: "right",
-        marginTop: "28px",
+        marginTop: "5px",
         color: "#f0f6ef",
         '&:hover': {
             background: '#288a3c',
