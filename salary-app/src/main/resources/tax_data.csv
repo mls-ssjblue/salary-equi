@@ -31,3 +31,6 @@ ID,Country,Bracket,Low,High,Tax rate
 30,Hong Kong,3,100001,150000,10
 31,Hong Kong,4,150001,200000,14
 32,Hong Kong,5,200000,100000000,17
+33,Netherlands,1,0,34712,37.35
+34,Netherlands,2,34712,68507,37.35
+35,Netherlands,3,68507,10000000,49.5
