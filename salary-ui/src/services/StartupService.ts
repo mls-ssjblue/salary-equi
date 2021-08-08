@@ -30,7 +30,7 @@ export function setupCountries(): Country[] {
     let ukCountry = new Country('UK', "UK", 0.8, "en-UK", 'GBP')
     countries.push(ukCountry)
 
-    let inCountry = new Country('INDIA', "IN", 70, "en-IN", 'INR')
+    let inCountry = new Country('India', "IN", 70, "en-IN", 'INR')
     countries.push(inCountry)
 
     console.log(countries)
