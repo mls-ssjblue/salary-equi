@@ -11,8 +11,16 @@ export const SalaryContainer = () => {
     }, []);
 
     return (
-        <>
-        <SalaryCalculation />
-        </>
+        <div className="slider">
+            <div className="salary-container">
+                <SalaryCalculation id="slide-1"/>
+                <SalaryCalculation id="slide-2"/>
+            </div>
+            <a href="#slide-1">1</a>
+            <a href="#slide-2">2</a>
+            <a href="#slide-3">3</a>
+            <a href="#slide-4">4</a>
+            <a href="#slide-5">5</a>
+        </div>
     )
 }

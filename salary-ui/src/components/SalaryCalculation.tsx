@@ -37,8 +37,10 @@ const getCurrencyFormattedValue = (country: Country, amount: number, isUsdToggle
 interface LooseObject {
     [key: string]: any
 }
-
-export const SalaryCalculation = () => {
+interface props{
+    id: string
+}
+export const SalaryCalculation = (id : props) => {
     const [salary, setSalary] = useState(0)
     const [annualTax, setAnnualTax] = useState(0)
     const [monthlyTax, setMonthlyTax] = useState(0)
@@ -48,7 +50,6 @@ export const SalaryCalculation = () => {
     const [currentCountry, setCurrentCountry] = useState(countries[0])
     const [showInUsd, setShowInUsd] = useState(false)
     const [currencyRates, setCurrencyRates] = useState({} as LooseObject)
-
     let currencyFormattedValue = new Intl.NumberFormat(currentCountry.locale, {
         style: 'currency',
         currency: currentCountry.currency
@@ -112,7 +113,7 @@ export const SalaryCalculation = () => {
     const classes = useStyles()
 
     return (
-        <div className="stage-container">
+        <div className="stage-container" {...id}>
             <div className="stage">
                 <div className="field">
                     <FormControl className={classNames(classes.formControl, classes.text)}>

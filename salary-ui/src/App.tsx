@@ -14,17 +14,17 @@ const App: React.FC = () => {
     return (
         <div className="App">
             <Header/>
-            <StyledContainer>
+            {/*<StyledContainer>*/}
                 {/*<Container maxWidth="sm">*/}
                 <SalaryContainer/>
                 {/*</Container>*/}
-            </StyledContainer>
+            {/*</StyledContainer>*/}
         </div>
     )
 }
 
 const StyledContainer = styled.div`
-  margin: 0 5% 0 5%;
+  // margin: 0 5% 0 5%;
   display: flex;
   justify-content: center;
 `
