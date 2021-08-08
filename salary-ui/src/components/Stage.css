@@ -82,7 +82,7 @@
     background: #61a916;
 }
 
-@media all and (min-width: 200px) and (max-width: 500px) {
+@media all and (min-width: 200px) and (max-width: 768px) {
     .slides > div {
         width: 90%;
         margin-left:20px;
