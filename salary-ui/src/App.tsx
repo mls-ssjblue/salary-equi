@@ -1,6 +1,5 @@
-import React, {useEffect} from "react"
+import React from "react"
 import "./App.css"
-import styled from "styled-components"
 import {Header} from "./header/Header"
 import {SalaryContainer} from "./components/SalaryContainer"
 import {setupCountries, setupMap} from './services/StartupService'
@@ -14,19 +13,9 @@ const App: React.FC = () => {
     return (
         <div className="App">
             <Header/>
-            {/*<StyledContainer>*/}
-                {/*<Container maxWidth="sm">*/}
-                <SalaryContainer/>
-                {/*</Container>*/}
-            {/*</StyledContainer>*/}
+            <SalaryContainer/>
         </div>
     )
 }
-
-const StyledContainer = styled.div`
-  // margin: 0 5% 0 5%;
-  display: flex;
-  justify-content: center;
-`
 
 export default App
