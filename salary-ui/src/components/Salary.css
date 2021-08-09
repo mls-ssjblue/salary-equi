@@ -62,7 +62,9 @@
     margin: 0 0.5rem 0.5rem 0;
     position: relative;
 }
-
+.navigation-panel >a.active {
+    background: #ffe300;
+}
 .navigation-panel > a:active {
     top: 1px;
 }
