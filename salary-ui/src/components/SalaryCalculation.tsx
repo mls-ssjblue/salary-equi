@@ -67,7 +67,6 @@ export const SalaryCalculation = (id: props) => {
     }, [currentCountry])
 
     useEffect(() => {
-        console.log('Fetching currency')
         try {
             fetch(`https://currencyapi.net/api/v1/rates?key=9GDrLrEkr2W5XIL1rpDAHQqA9PqpDAW8rxNM&base=USD`, {
                 "method": "GET",
@@ -78,8 +77,6 @@ export const SalaryCalculation = (id: props) => {
             }).then(response => response.json())
                 .then(response => {
                     setCurrencyRates(response.rates)
-                    console.log(currencyRates)
-                    console.log(currencyRates[currentCountry.currency])
                 })
         } catch (e) {
             console.log('Error occurred while fetching currency rates: ' + e)
