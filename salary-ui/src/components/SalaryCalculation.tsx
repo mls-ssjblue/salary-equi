@@ -15,7 +15,7 @@ import {
 } from "@material-ui/core"
 import {makeStyles} from "@material-ui/core/styles"
 import classNames from "classnames"
-import '@fontsource/roboto'
+// import '@fontsource/roboto'
 import {countries, Country, countryMap} from '../services/StartupService'
 import {green, grey} from '@material-ui/core/colors'
 
@@ -119,17 +119,19 @@ export const SalaryCalculation = (id: props) => {
         <div className="stage" {...id}>
             <div className="field">
                 <FormControl className={classNames(classes.formControl, classes.text)}>
-                    <InputLabel style={{fontSize: '24px'}}>Country</InputLabel>
+                    <InputLabel className={classes.inputLabel}>Country</InputLabel>
                     <Select
                         labelId="demo-simple-select-label"
                         id="demo-simple-select"
                         value={currentCountryName}
                         onChange={handleChange}
+                        className={classes.select}
                     >
 
                         {countries?.map((item) => {
                             return (
-                                <MenuItem key={item.countryCode} value={item.name}>
+                                <MenuItem key={item.countryCode} value={item.name}
+                                          className={classes.select}>
                                     {item.name}
                                 </MenuItem>
                             )
@@ -140,13 +142,15 @@ export const SalaryCalculation = (id: props) => {
             </div>
             <div className="field">
                 <FormControl className={classNames(classes.formControl, classes.text)}>
-                    <InputLabel style={{fontSize: '19px'}}>Annual Salary</InputLabel>
+                    <InputLabel className={classes.inputLabel}>Annual Salary</InputLabel>
                     <Input onChange={e => {
                         setSalary(+e.target.value)
                         setAnnualTax(0)
                         setMonthlyTax(0)
                         setNetMonthlySalary(0)
+
                     }}
+                           className={classes.inputLabel}
                            placeholder={currencyFormattedValue}/>
                 </FormControl>
             </div>
@@ -162,7 +166,9 @@ export const SalaryCalculation = (id: props) => {
                                 color="primary"
                                 name="usdToggle"
                                 inputProps={{'aria-label': 'primary checkbox'}}
-                            />} label="Show in USD"/>
+                            />}
+                                          className={classes.toggle}
+                                          label="Show in USD"/>
 
                     </div>
                 </div>
@@ -211,6 +217,7 @@ const useStyles = makeStyles(theme => ({
         ...theme.typography.button,
         backgroundColor: theme.palette.background.paper,
         padding: theme.spacing(1),
+        fontFamily: 'Arvo, serif'
     },
     form: {
         width: 800,
@@ -225,25 +232,26 @@ const useStyles = makeStyles(theme => ({
         alignItems: "center"
     },
     text: {
-        minWidth: 120
+        minWidth : 120
     },
     type: {
-        fontWeight: 600
+        fontWeight : 600
     },
     formControl: {
         display: "flex",
-        height: 10
+        height: 5
 
     },
     input: {
         padding: "10px 14px"
     },
     select: {
-        maxWidth: 130,
-        padding: "5px 7px"
+        // maxWidth: 130,
+        // padding: "5px 7px",
+        fontFamily: 'Gill Sans,Gill Sans MT,Calibri,sans-serif'
     },
     search: {
-        maxWidth: 180
+        // maxWidth: 180
     },
     submitBtn: {
         // [theme.breakpoints.down("xs")]: {
@@ -258,7 +266,12 @@ const useStyles = makeStyles(theme => ({
             background: '#288a3c',
         },
         fontSize: "14px",
-    }
+    },
+    toggle: {},
+    inputLabel: {
+        fontSize: "18px",
+        fontFamily: 'Gill Sans,Gill Sans MT,Calibri,sans-serif'
+    },
 }))
 
 
