@@ -5,7 +5,8 @@ import Typography from "@material-ui/core/Typography"
 export const Header: React.FC = () => {
     return (
         <div className="header">
-            <h1>Salary Equivalence</h1>
+            <h1>Pay Compared</h1>
+            <h2>How much do you actually take home?</h2>
         </div>
     )
 }

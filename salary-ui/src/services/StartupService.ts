@@ -23,7 +23,7 @@ export class Country {
 
 export function setupCountries(): Country[] {
     countries = []
-    console.log('Creating countries ...')
+    // console.log('Creating countries ...')
     let sgCountry = new Country('Singapore', "SG", 1.3, "en-SG", 'SGD')
     countries.push(sgCountry)
     // countryMap.set("Singapre", sgCountry)
@@ -51,7 +51,7 @@ export function setupMap() {
     for (let i = 0; i < countries.length; i++) {
         countryMap.set(countries[i].name, countries[i])
     }
-    console.log(countryMap)
+    // console.log(countryMap)
 }
 
 // setupCountries()

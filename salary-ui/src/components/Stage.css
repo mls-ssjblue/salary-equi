@@ -35,8 +35,8 @@
 .label {
     margin-right: 10px;
     align-content: start;
-    font-family: "Roboto", serif;
-    font-size: 20px;
+    font-family: 'Gill Sans,Gill Sans MT,Calibri',sans-serif;
+    font-size: 18px;
     text-align: left;
     width: 125px;
 
@@ -45,13 +45,15 @@
 .value {
     margin-left: auto;
     margin-right: 50px;
-    font-family: "Roboto", serif;
-    font-size: 20px;
+    /*font-family: "Roboto", serif;*/
+    font-size: 18px;
     border-left: 5px solid green;
     background: #87d691;
     width: 150px;
     padding-right: 5px;
     height: 25px;
+    padding-top: 2px;
+    font-family: 'Gill Sans,Gill Sans MT,Calibri',sans-serif;
 }
 
 .field {
@@ -66,7 +68,9 @@
     height: fit-content;
 }
 
-
+.toggle{
+    font-family: 'Gill Sans,Gill Sans MT,Calibri',sans-serif;
+}
 #submit-button {
     float: right;
     margin: 50px;
